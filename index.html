@@ -14,9 +14,29 @@
 <body>
 
 <div class="container hero">
-  <div>
+  
+  <!-- LEFT SIDE -->
+  <div class="hero-left">
     <h1>Choose the Right Veterinary Product</h1>
     <p>Real field data. Vet verified results. No guesswork.</p>
+
+    <div class="search-group">
+      <input id="searchInput" class="search" placeholder="Search product or disease..." />
+      <button class="btn">Explore Top Rated</button>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="hero-right">
+    <div class="card">
+      <h3 id="featured-name">Loading...</h3>
+      <div class="score" id="featured-score">--</div>
+      <p id="featured-success">Success Rate: --</p>
+      <span class="badge success">Top Rated</span>
+    </div>
+  </div>
+
+</div>
 
  <div class="search-group">
   <input id="searchInput" class="search" placeholder="Search product or disease..." />
