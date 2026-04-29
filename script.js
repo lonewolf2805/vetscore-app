@@ -33,12 +33,20 @@ async function loadProducts() {
   products.sort((a, b) => b.score - a.score);
 
   // Featured product
-  const top = products[0];
+ const top = products[0];
 
-  document.getElementById("featured-name").innerText = top.name;
-  document.getElementById("featured-score").innerText = top.score + " / 10";
-  document.getElementById("featured-success").innerText =
-    "Success Rate: " + top.success + "%";
+const nameEl = document.getElementById("featured-name");
+const scoreEl = document.getElementById("featured-score");
+const successEl = document.getElementById("featured-success");
+
+console.log("Elements:", nameEl, scoreEl, successEl);
+console.log("Top product:", top);
+
+if (top && nameEl && scoreEl && successEl) {
+  nameEl.innerText = top.name;
+  scoreEl.innerText = top.score + " / 10";
+  successEl.innerText = "Success Rate: " + top.success + "%";
+}
 
   // Load grid
   const grid = document.getElementById("product-grid");
@@ -63,4 +71,6 @@ async function loadProducts() {
 }
 
 // Run
-loadProducts();
+document.addEventListener("DOMContentLoaded", () => {
+  loadProducts();
+});
