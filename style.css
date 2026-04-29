@@ -30,27 +30,32 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 80px 20px;
   gap: 60px;
   flex-wrap: wrap;
 }
 
-.hero h1 {
-  font-size: 42px;
-  font-weight: 700;
+.hero-left {
+  flex: 1;
+  min-width: 300px;
 }
 
-.hero p {
-  color: var(--text-sub);
-  font-size: 16px;
+.hero-right {
+  flex: 0 0 260px;
 }
 
 /* Search */
 .search-group {
   display: flex;
-  flex-direction: column;
-  gap: 15px; /* 🔥 clean spacing */
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.search {
+  flex: 1;
+}
+
+.btn {
+  white-space: nowrap;
 }
 
 .search:focus {
