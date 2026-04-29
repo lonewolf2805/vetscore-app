@@ -23,11 +23,28 @@ const grid = document.getElementById("product-grid");
 async function loadProducts() {
   const querySnapshot = await getDocs(collection(db, "products"));
 
-  grid.innerHTML = "";
+  const products = [];
 
   querySnapshot.forEach((doc) => {
-    const p = doc.data();
+    products.push(doc.data());
+  });
 
+  // Sort by score (highest first)
+  products.sort((a, b) => b.score - a.score);
+
+  // Featured product
+  const top = products[0];
+
+  document.getElementById("featured-name").innerText = top.name;
+  document.getElementById("featured-score").innerText = top.score + " / 10";
+  document.getElementById("featured-success").innerText =
+    "Success Rate: " + top.success + "%";
+
+  // Load grid
+  const grid = document.getElementById("product-grid");
+  grid.innerHTML = "";
+
+  products.forEach((p) => {
     const div = document.createElement("div");
     div.className = "card";
 
