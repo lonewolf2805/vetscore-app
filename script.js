@@ -1,31 +1,49 @@
-const products = [
-  { name: "Drug A", score: 8.2, success: 75, level: "success" },
-  { name: "Drug B", score: 6.9, success: 60, level: "warning" },
-  { name: "Drug C", score: 5.1, success: 42, level: "danger" }
-];
+// Import Firebase (MODERN)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Your Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyC0WwdILAafF0k1pLZcY4gv6GPpmAmkrks",
+  authDomain: "vetscore-e89f6.firebaseapp.com",
+  projectId: "vetscore-e89f6",
+  storageBucket: "vetscore-e89f6.firebasestorage.app",
+  messagingSenderId: "75901456641",
+  appId: "1:75901456641:web:eeda94ae13d7cfddfb8b00"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// UI container
 const grid = document.getElementById("product-grid");
 
-// Load featured
-document.getElementById("featured-name").innerText = products[0].name;
-document.getElementById("featured-score").innerText = products[0].score + " / 10";
-document.getElementById("featured-success").innerText =
-  "Success Rate: " + products[0].success + "%";
+// Load products from Firestore
+async function loadProducts() {
+  const querySnapshot = await getDocs(collection(db, "products"));
 
-// Load products
-products.forEach(p => {
-  const div = document.createElement("div");
-  div.className = "card";
+  grid.innerHTML = "";
 
-  div.innerHTML = `
-    <h4>${p.name}</h4>
-    <div class="score">${p.score}</div>
-    <p>Success: ${p.success}%</p>
-    <span class="badge ${p.level}">
-      ${p.level === "success" ? "Effective" :
-        p.level === "warning" ? "Moderate" : "Caution"}
-    </span>
-  `;
+  querySnapshot.forEach((doc) => {
+    const p = doc.data();
 
-  grid.appendChild(div);
-});
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <h4>${p.name}</h4>
+      <div class="score">${p.score}</div>
+      <p>Success: ${p.success}%</p>
+      <span class="badge ${p.level}">
+        ${p.level === "success" ? "Effective" :
+          p.level === "warning" ? "Moderate" : "Caution"}
+      </span>
+    `;
+
+    grid.appendChild(div);
+  });
+}
+
+// Run
+loadProducts();
